@@ -30,7 +30,9 @@ def encrypt(text):
     for char in list(text):
         if char.islower():
             results += encrypt_lower(char=char)
-        else: results += encrypt_upper(char=char)
+        elif char.isupper():
+            results += encrypt_upper(char=char)
+        else: results+= char
     print("The word has been encrypted successfully.\n" +
           f"The word is : {results}")
     
@@ -39,7 +41,9 @@ def decrypt(text):
     for char in list(text):
         if char.islower():
             results += decrypt_lower(char=char)
-        else: results += decrypt_upper(char=char)
+        elif char.isupper():
+            results += decrypt_upper(char=char)
+        else: results+= char
     print("The word has been encrypted successfully.\n" +
           f"The word is : {results}")
 
