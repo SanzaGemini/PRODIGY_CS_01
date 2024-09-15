@@ -24,5 +24,5 @@ if __name__ == "__main__":
         if word == "1":
             break
 
-    print("*** Thgank You For using the Caesar Cipher Progarm")    
+    print("\n*** Thank You For using the Caesar Cipher Progarm")    
     
