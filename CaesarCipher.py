@@ -25,7 +25,7 @@ def getvalue():
         else :
             print("Shift Value Is Not a Digit!!!")
 
-def shift_cipher(text):
+def encrypt(text):
     results = ""
     for char in list(text):
         if char.islower():
@@ -33,20 +33,48 @@ def shift_cipher(text):
         else: results += encrypt_upper(char=char)
     print("The word has been encrypted successfully.\n" +
           f"The word is : {results}")
+    
+def decrypt(text):
+    results = ""
+    for char in list(text):
+        if char.islower():
+            results += decrypt_lower(char=char)
+        else: results += decrypt_upper(char=char)
+    print("The word has been encrypted successfully.\n" +
+          f"The word is : {results}")
+
+
+def shift_cipher(text,isencrypt):
+    if isencrypt:
+        encrypt(text=text)
+    else: decrypt(text=text)
+
+def getmethod():
+    method = input("Do you wish to encrypt or decrypt?")
+
+    if method.lower() == "encrypt":
+        return True
+    elif method.lower() == "decrypt":
+        return False
+    elif method == "1":
+        return None
+    else:getmethod() 
 
 if __name__ == "__main__":
     print("*** Welcome to Caesar Cipher Progarm ***")
     
     while(True):
         print("\n"+"If you want to end the program enter 1\n")
-        word = input("Enter a word to encrypt: ")
+        
+        isencrypt = getmethod()
 
-        if word == "1":
+        if isencrypt == None:
             break
         
-        value = getvalue()
-        shift_cipher(word)
+        word = input("\nEnter a word to encrypt: ")
 
-        print(value)
+        value = getvalue()
+        shift_cipher(word,isencrypt)
+
     print("\n*** Thank You For using the Caesar Cipher Progarm")    
     
