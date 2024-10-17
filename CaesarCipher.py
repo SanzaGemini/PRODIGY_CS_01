@@ -87,7 +87,7 @@ def encrypt(text):
             results += encryptUpper(char=char)
         else:
             results += char
-    print("The Word Has Been Encrypted Successfully.\n" +
+    print("\nThe Word Has Been Encrypted Successfully.\n" +
           getResults(results))
     
 def decrypt(text):
@@ -108,7 +108,7 @@ def decrypt(text):
             results += decryptUpper(char=char)
         else:
             results += char
-    print("The Word Has Been Decrypted Successfully.\n" +
+    print("\nThe Word Has Been Decrypted Successfully.\n" +
           getResults(results=results))
 
 def shiftCipher(isEncrypt):
