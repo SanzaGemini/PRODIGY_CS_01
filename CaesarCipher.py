@@ -1,60 +1,141 @@
 import string
 
 alphabets = list(string.ascii_uppercase)
-value = 0
+shiftValue = 0
 
+def encryptUpper(char):
+    """
+    Encrypts an uppercase letter using Caesar cipher.
 
-def encrypt_upper(char):
-    return alphabets[(ord(char) - 65 + value)%26]
+    Args:
+    char (str): A single uppercase character to be encrypted.
 
-def encrypt_lower(char):
-     return alphabets[(ord(char) - 97 + value)%26].lower()
+    Returns:
+    str: Encrypted uppercase letter.
+    """
+    return alphabets[(ord(char) - 65 + shiftValue) % 26]
 
-def decrypt_upper(char):
-    return alphabets[(ord(char) - 65 - value)%26]
+def encryptLower(char):
+    """
+    Encrypts a lowercase letter using Caesar cipher.
 
-def decrypt_lower(char):
-    return alphabets[(ord(char) - 97 - value)%26].lower()
+    Args:
+    char (str): A single lowercase character to be encrypted.
 
-def getvalue():
+    Returns:
+    str: Encrypted lowercase letter.
+    """
+    return alphabets[(ord(char) - 97 + shiftValue) % 26].lower()
+
+def decryptUpper(char):
+    """
+    Decrypts an uppercase letter using Caesar cipher.
+
+    Args:
+    char (str): A single uppercase character to be decrypted.
+
+    Returns:
+    str: Decrypted uppercase letter.
+    """
+    return alphabets[(ord(char) - 65 - shiftValue) % 26]
+
+def decryptLower(char):
+    """
+    Decrypts a lowercase letter using Caesar cipher.
+
+    Args:
+    char (str): A single lowercase character to be decrypted.
+
+    Returns:
+    str: Decrypted lowercase letter.
+    """
+    return alphabets[(ord(char) - 97 - shiftValue) % 26].lower()
+
+def getShiftValue():
+    """
+    Prompts the user to enter a valid shift value for encryption.
+
+    Returns:
+    int: The shift value entered by the user.
+    """
     while(True):
         value = input("\nPlease Enter Shift Value For Encryption: ")
 
         if value.isdigit():
             return int(value)
-        else :
+        else:
             print("Shift Value Is Not a Digit!!!")
 
+def getResults(results):
+    return f"The Word is: {results}"
+
 def encrypt(text):
+    """
+    Encrypts a given text using Caesar cipher.
+
+    Args:
+    text (str): The text to be encrypted.
+
+    Returns:
+    None
+    """
     results = ""
     for char in list(text):
         if char.islower():
-            results += encrypt_lower(char=char)
+            results += encryptLower(char=char)
         elif char.isupper():
-            results += encrypt_upper(char=char)
-        else: results+= char
-    print("The word has been encrypted successfully.\n" +
-          f"The word is : {results}")
+            results += encryptUpper(char=char)
+        else:
+            results += char
+    print("The Word Has Been Encrypted Successfully.\n" +
+          getResults(results))
     
 def decrypt(text):
+    """
+    Decrypts a given text using Caesar cipher.
+
+    Args:
+    text (str): The text to be decrypted.
+
+    Returns:
+    None
+    """
     results = ""
     for char in list(text):
         if char.islower():
-            results += decrypt_lower(char=char)
+            results += decryptLower(char=char)
         elif char.isupper():
-            results += decrypt_upper(char=char)
-        else: results+= char
-    print("The word has been encrypted successfully.\n" +
-          f"The word is : {results}")
+            results += decryptUpper(char=char)
+        else:
+            results += char
+    print("The Word Has Been Decrypted Successfully.\n" +
+          getResults(results=results))
 
+def shiftCipher(isEncrypt):
+    """
+    Encrypts or decrypts the given text based on user input.
 
-def shift_cipher(text,isencrypt):
-    if isencrypt:
+    Args:
+    isEncrypt (bool): If True, the function encrypts; if False, it decrypts.
+
+    Returns:
+    None
+    """
+    text = getWord(isEncrypt)
+    if isEncrypt:
         encrypt(text=text)
-    else: decrypt(text=text)
+    else:
+        decrypt(text=text)
 
-def getmethod():
-    method = input("Do you wish to encrypt or decrypt?")
+def getMethod():
+    """
+    Prompts the user to choose between encryption and decryption.
+
+    Returns:
+    bool: True if the user chooses encryption, False if decryption.
+    None: If the user wants to exit the program.
+    """
+    method = input("Do You Wish To Encrypt Or Decrypt? ")
 
     if method.lower() == "encrypt":
         return True
@@ -62,23 +143,35 @@ def getmethod():
         return False
     elif method == "1":
         return None
-    else:getmethod() 
+    else:
+        return getMethod()
+
+def getWord(isEncrypt):
+    """
+    Prompts the user to enter the text to be encrypted or decrypted.
+
+    Args:
+    isEncrypt (bool): Determines whether the text will be encrypted or decrypted.
+
+    Returns:
+    str: The text entered by the user.
+    """
+    if isEncrypt:
+        return input("\nEnter A Word To Encrypt: ")
+    return input("\nEnter A Word To Decrypt: ")
 
 if __name__ == "__main__":
-    print("*** Welcome to Caesar Cipher Progarm ***")
+    print("*** Welcome To Caesar Cipher Program ***")
     
     while(True):
-        print("\n"+"If you want to end the program enter 1\n")
+        print("\nIf You Want To End The Program Enter 1\n")
         
-        isencrypt = getmethod()
+        isEncrypt = getMethod()
 
-        if isencrypt == None:
+        if isEncrypt == None:
             break
-        
-        word = input("\nEnter a word to encrypt: ")
 
-        value = getvalue()
-        shift_cipher(word,isencrypt)
+        shiftValue = getShiftValue()
+        shiftCipher(isEncrypt)
 
-    print("\n*** Thank You For using the Caesar Cipher Progarm")    
-    
+    print("\n*** Thank You For Using the Caesar Cipher Program ***")
